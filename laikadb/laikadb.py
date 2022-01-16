@@ -70,16 +70,14 @@ class LaikaDB:
         except json.JSONDecodeError:
             raise DBFileNotValid
         else:
-            is_valid = db_data.get('isValid')
-            created_in = db_data.get('createdIn')
-            last_update = db_data.get('lastUpdate')
-            content = db_data.get('content')
-
-            list_for_verify = [is_valid, created_in,
-                               last_update, content]
-
-            # verificando se os valores existem
-            if all(list_for_verify):
+            # verificando se os valores
+            # existem
+            try:
+                is_valid = db_data['isValid']
+                created_in = db_data['createdIn']
+                last_update = db_data['lastUpdate']
+                content = db_data['content']
+            except KeyError:
                 raise DBFileNotValid
 
             if not isinstance(content, dict):
@@ -147,9 +145,11 @@ class LaikaDB:
         db_content[parent_name][child_name] = content
         db['content'] = db_content
 
-        self._save_db()
+        self._save_db(db)
 
 
 if __name__ == '__main__':
     db = LaikaDB()
+
     db.add('meuObjeto', {})
+    db.add_child('meuObjeto', 'filho', {})
