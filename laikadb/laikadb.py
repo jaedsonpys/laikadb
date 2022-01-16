@@ -16,7 +16,7 @@ class LaikaDB:
     def __init__(
             self,
             dbname: str = 'laika.db.json'
-    ) -> object:
+    ) -> None:
         """Inicializa ou conecta-se
         a um banco de dados.
 
