@@ -153,7 +153,7 @@ class LaikaDB:
 
         Se ele não existir, None é retornado.
 
-        :param parent_name: Nome o objeto pai
+        :param parent_name: Nome do objeto pai
         :return: Conteúdo do objeto pai ou None.
         """
 
@@ -163,6 +163,28 @@ class LaikaDB:
         parent = db_content.get(parent_name)
         return parent
 
+    def get_child(self, parent_name: str, child_name: str) -> [dict, None]:
+        """Obtém um objeto filho de um
+        objeto pai.
+
+        Se ele não existir, None é retornado.
+
+        :param parent_name: Nome o objeto pai.
+        :param child_name: Nome do objeto filho
+        :return: Conteúdo do objeto pai ou None.
+        """
+
+        db = self._open_db()
+        db_content = db.get('content')
+
+        parent = db_content.get(parent_name)
+
+        if not parent:
+            return None
+
+        child = parent.get(child_name)
+        return child
+
 
 if __name__ == '__main__':
     db = LaikaDB()
@@ -171,3 +193,4 @@ if __name__ == '__main__':
     db.add_child('meuObjeto', 'filho', {})
 
     print(db.get_parent('meuObjeto'))
+    print(db.get_child('meuObjeto', 'filho'))
