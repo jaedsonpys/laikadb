@@ -38,6 +38,19 @@ class LaikaDB:
         self.dbname = dbname
         self._initialize()
 
+    def get_last_update(self):
+        """Retorna a data da última
+        atualização no banco de dados.
+
+        :return: Data em objeto datetime
+        """
+
+        db = self._open_db()
+        last_update = db.get('lastUpdate')
+
+        last_update = datetime.strptime(last_update, '%Y-%m-%d %H:%M:%S.%f')
+        return last_update
+
     def _initialize(self) -> None:
         # verificando se o banco de dados
         # especificado já existe
@@ -200,3 +213,4 @@ if __name__ == '__main__':
 
     print(db.get_parent('meuObjeto'))
     print(db.get_child('meuObjeto', 'filho'))
+    print(db.get_last_update())
