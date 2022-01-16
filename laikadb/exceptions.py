@@ -1,3 +1,9 @@
+# Copyright © 2022 - Firlast
+#
+# LaikaDB, desenvolvido pela Firlast.
+# Este projeto é open-source, siga as
+# instruções da licença.
+
 class Base(Exception):
     pass
 
