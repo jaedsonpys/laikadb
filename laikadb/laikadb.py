@@ -66,7 +66,7 @@ class LaikaDB:
             with open(self.dbname, 'r') as db:
                 db_data = json.load(db)
         except FileNotFoundError:
-            raise FileNotFoundError('DB file not found')
+            raise FileNotFoundError('Arquivo do banco de dados não encontrado.')
         except json.JSONDecodeError:
             raise DBFileNotValid
         else:
@@ -87,6 +87,23 @@ class LaikaDB:
 
             return db_data
 
+    def _save_db(self, db: dict) -> None:
+        """Salva o banco de dados.
+
+        :param db: Dicionário do banco de dados
+        :return: None
+        """
+
+        try:
+            time_now = str(datetime.now())
+            db['lastUpdate'] = time_now
+
+            with open(self.dbname, 'w') as db_file:
+                json.dump(db, db_file,
+                          indent=4, ensure_ascii=False)
+        except FileNotFoundError:
+            raise FileNotFoundError('Arquivo do banco de dados não encontrado.')
+
     def add(self, name: str, content: dict) -> None:
         """Cria um novo objeto na raíz
         do banco de dados.
@@ -99,4 +116,4 @@ class LaikaDB:
 
         db = self._open_db()
         db_content: dict = db.get('content')
-        db_content.setdefault(name, content)
+        db_content[name] = content
