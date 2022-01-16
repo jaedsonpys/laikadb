@@ -50,9 +50,9 @@ db.add_child(parent_name='meuObjeto',
 
 Bom, agora vamos explicar pra que serve cada argumento desse.
 
-- parent_name: Nome do objeto pai que vai receber o objeto filho (será criado se não existir);
-- child_name: Nome do objeto filho;
-- content: Conteúdo inicial do objeto filho.
+- ```parent_name```: Nome do objeto pai que vai receber o objeto filho (será criado se não existir);
+- ```child_name```: Nome do objeto filho;
+- ```content```: Conteúdo inicial do objeto filho.
 
 No final de tudo, a estrutura seria essa:
 
