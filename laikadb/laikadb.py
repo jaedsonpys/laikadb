@@ -86,3 +86,17 @@ class LaikaDB:
                 raise InvalidContentError
 
             return db_data
+
+    def add(self, name: str, content: dict) -> None:
+        """Cria um novo objeto na raíz
+        do banco de dados.
+
+        Este objeto podem ser utilizados
+        como "pai" para outros objetos.
+
+        :return: None
+        """
+
+        db = self._open_db()
+        db_content: dict = db.get('content')
+        db_content.setdefault(name, content)
