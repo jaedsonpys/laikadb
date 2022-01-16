@@ -32,3 +32,32 @@ db.add_parent('meuObjeto', {})
 Pronto, após isso, um arquivo ```laika.db.json``` será criado em seu diretório e lá contém todas as informações necessárias para o funcionamento do LaikaDB.
 
 > Objetos "pai" sempre estarão na raíz do banco de dados
+
+## Adicionando um objeto filho
+
+Um objeto filho sempre estará dentro do objeto pai, para adicionar um objeto filho ao objeto pai, usaremos o método ```LaikaDB.add_child```. Veja o exemplo abaixo:
+
+```python
+from laikadb import LaikaDB
+
+db = LaikaDB()
+
+db.add_parent('meuObjeto', {})
+db.add_child(parent_name='meuObjeto',
+             child_name='meuObjetoFilho',
+             content={})
+```
+
+Bom, agora vamos explicar pra que serve cada argumento desse.
+
+- parent_name: Nome do objeto pai que vai receber o objeto filho (será criado se não existir);
+- child_name: Nome do objeto filho;
+- content: Conteúdo inicial do objeto filho.
+
+No final de tudo, a estrutura seria essa:
+
+```json
+"meuObjeto": {
+  "meuObjetoFilho": {}
+}
+```
