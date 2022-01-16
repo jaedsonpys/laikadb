@@ -117,3 +117,6 @@ class LaikaDB:
         db = self._open_db()
         db_content: dict = db.get('content')
         db_content[name] = content
+
+        db['content'] = db_content
+        self._save_db(db)
