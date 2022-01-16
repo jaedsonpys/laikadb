@@ -9,8 +9,8 @@ import os
 
 from datetime import datetime
 
-from exceptions import DBFileNotValid
-from exceptions import InvalidContentError
+from .exceptions import DBFileNotValid
+from .exceptions import InvalidContentError
 
 DEFAULT_DB_STRUCTURE = {'isValid': None,
                         'createdIn': None,
