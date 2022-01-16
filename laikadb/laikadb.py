@@ -144,11 +144,9 @@ class LaikaDB:
             self.add(parent_name, obj)
             return
 
-        obj = {}
-        obj[child_name] = content
-        db_content[parent_name] = obj
-
+        db_content[parent_name][child_name] = content
         db['content'] = db_content
+
         self._save_db()
 
 
