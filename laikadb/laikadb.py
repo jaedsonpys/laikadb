@@ -102,7 +102,7 @@ class LaikaDB:
         except FileNotFoundError:
             raise FileNotFoundError('Arquivo do banco de dados não encontrado.')
 
-    def add(self, name: str, content: dict) -> None:
+    def add_parent(self, name: str, content: dict) -> None:
         """Cria um novo objeto na raíz
         do banco de dados.
 
@@ -139,7 +139,7 @@ class LaikaDB:
             obj = {}
             obj[child_name] = content
 
-            self.add(parent_name, obj)
+            self.add_parent(parent_name, obj)
             return
 
         db_content[parent_name][child_name] = content
@@ -147,9 +147,27 @@ class LaikaDB:
 
         self._save_db(db)
 
+    def get_parent(self, parent_name: str) -> [dict, None]:
+        """Obtém um objeto "pai" com
+        todos os seus filhos dentro.
+
+        Se ele não existir, None é retornado.
+
+        :param parent_name: Nome o objeto pai
+        :return: Conteúdo do objeto pai ou None.
+        """
+
+        db = self._open_db()
+        db_content = db.get('content')
+
+        parent = db_content.get(parent_name)
+        return parent
+
 
 if __name__ == '__main__':
     db = LaikaDB()
 
-    db.add('meuObjeto', {})
+    db.add_parent('meuObjeto', {})
     db.add_child('meuObjeto', 'filho', {})
+
+    print(db.get_parent('meuObjeto'))
