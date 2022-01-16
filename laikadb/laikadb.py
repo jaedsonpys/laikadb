@@ -15,7 +15,7 @@ DEFAULT_DB_STRUCTURE = {'isValid': None,
 class LaikaDB:
     def __init__(
             self,
-            dbname: str = 'laika.db'
+            dbname: str = 'laika.db.json'
     ) -> object:
         """Inicializa ou conecta-se
         a um banco de dados.
@@ -26,7 +26,7 @@ class LaikaDB:
         será criado.
 
         :param dbname: Nome do documento do banco de dados.
-        (o padrão é "laika.db").
+        (o padrão é "laika.db.json").
         """
 
         self.dbname = dbname
@@ -79,7 +79,7 @@ class LaikaDB:
                                last_update, content]
 
             # verificando se os valores existem
-            if not all(list_for_verify):
+            if all(list_for_verify):
                 raise DBFileNotValid
 
             if not isinstance(content, dict):
@@ -120,3 +120,8 @@ class LaikaDB:
 
         db['content'] = db_content
         self._save_db(db)
+
+
+if __name__ == '__main__':
+    db = LaikaDB()
+    db.add('meuObjeto', {})
