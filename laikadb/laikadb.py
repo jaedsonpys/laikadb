@@ -121,6 +121,36 @@ class LaikaDB:
         db['content'] = db_content
         self._save_db(db)
 
+    def add_child(self, parent_name: str, child_name, content: dict) -> None:
+        """Adiciona um novo filho ao objeto
+        pai.
+
+        Caso este objeto pai não exista,
+        ele será criado.
+
+        :param parent_name: Nome do objeto pai
+        :param child_name: Nome do objeto filho
+        :param content: Conteúdo do objeto filho
+        :return: None
+        """
+
+        db = self._open_db()
+        db_content: dict = db.get('content')
+
+        if parent_name not in db_content:
+            obj = {}
+            obj[child_name] = content
+
+            self.add(parent_name, obj)
+            return
+
+        obj = {}
+        obj[child_name] = content
+        db_content[parent_name] = obj
+
+        db['content'] = db_content
+        self._save_db()
+
 
 if __name__ == '__main__':
     db = LaikaDB()
